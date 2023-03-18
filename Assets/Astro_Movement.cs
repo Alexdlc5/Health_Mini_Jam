@@ -4,46 +4,31 @@ using UnityEngine;
 
 public class Astro_Movement : MonoBehaviour
 {
-    private Rigidbody2D rb;
-    public float max_booster_speed;
-    public float acceleration;
-    public float xdamp;
+    private Ship_Manager ship;
+    public float x_speed = 10;
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        ship = GameObject.FindGameObjectWithTag("Ship").GetComponent<Ship_Manager>();
     }
     private void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (!ship.gameover)
         {
-            float velocityInDirection = Vector2.Dot(rb.velocity, Vector2.up);
-            if (velocityInDirection <= max_booster_speed)
+            if (Input.GetKey(KeyCode.UpArrow))
             {
-                rb.AddForce(Vector2.up * acceleration * Time.fixedDeltaTime);
+                transform.position += (Vector3)Vector2.up * x_speed * Time.deltaTime;
             }
-        }
-        if (Input.GetKey(KeyCode.DownArrow))
-        {
-            float velocityInDirection = Vector2.Dot(rb.velocity, Vector2.down);
-            if (velocityInDirection <= max_booster_speed)
+            if (Input.GetKey(KeyCode.DownArrow))
             {
-                rb.AddForce(Vector2.down * acceleration * Time.fixedDeltaTime);
+                transform.position += (Vector3)Vector2.down * x_speed * Time.deltaTime;
             }
-        }
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            float velocityInDirection = Vector2.Dot(rb.velocity, Vector2.left);
-            if (velocityInDirection <= max_booster_speed)
+            if (Input.GetKey(KeyCode.LeftArrow))
             {
-                rb.AddForce(Vector2.left * acceleration * xdamp * Time.fixedDeltaTime);
+                transform.position += (Vector3)Vector2.left * x_speed * Time.deltaTime;
             }
-        }
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            float velocityInDirection = Vector2.Dot(rb.velocity, Vector2.right);
-            if (velocityInDirection <= max_booster_speed)
+            if (Input.GetKey(KeyCode.RightArrow))
             {
-                rb.AddForce(Vector2.right * acceleration * xdamp *Time.fixedDeltaTime);
+                transform.position += (Vector3)Vector2.right * x_speed * Time.deltaTime;
             }
         }
     }

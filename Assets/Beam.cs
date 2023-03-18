@@ -4,29 +4,37 @@ using UnityEngine;
 
 public class Beam : MonoBehaviour
 {
+    public Ship_Manager ship;
     public float beam_strength;
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        //with player input, find nearest piece of cargo and use tractor beam on it
-        if (Input.GetMouseButton(0))
+        ship = GameObject.FindGameObjectWithTag("Ship").GetComponent<Ship_Manager>();
+    }
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        if (!ship.gameover)
         {
-            GameObject[] nearby_cargo = GameObject.FindGameObjectsWithTag("Cargo");
-            GameObject closest_cargo = null;
-            foreach (GameObject cargo in nearby_cargo)
+            //with player input, find nearest piece of cargo and use tractor beam on it
+            if (Input.GetMouseButton(0))
             {
-                if (closest_cargo == null)
+                GameObject[] nearby_cargo = GameObject.FindGameObjectsWithTag("Cargo");
+                GameObject closest_cargo = null;
+                foreach (GameObject cargo in nearby_cargo)
                 {
-                    closest_cargo = cargo;
+                    if (closest_cargo == null)
+                    {
+                        closest_cargo = cargo;
+                    }
+                    else if (Distance(Camera.main.ScreenToWorldPoint(Input.mousePosition), cargo.transform.position) < Distance(Camera.main.ScreenToWorldPoint(Input.mousePosition), closest_cargo.transform.position))
+                    {
+                        closest_cargo = cargo;
+                    }
                 }
-                else if (Distance(Camera.main.ScreenToWorldPoint(Input.mousePosition), cargo.transform.position) < Distance(Camera.main.ScreenToWorldPoint(Input.mousePosition), closest_cargo.transform.position))
-                {
-                    closest_cargo = cargo;
-                }
+                //move cargo
+                closest_cargo.transform.position = Vector3.MoveTowards(closest_cargo.transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), beam_strength * Time.fixedDeltaTime);
+                closest_cargo.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
             }
-            //move cargo
-            closest_cargo.transform.position = Vector3.MoveTowards(closest_cargo.transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), beam_strength * Time.deltaTime);
-            closest_cargo.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         }
     }
     //find distance between two vectors
