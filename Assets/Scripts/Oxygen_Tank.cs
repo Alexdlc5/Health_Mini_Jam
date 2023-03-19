@@ -8,6 +8,7 @@ public class Oxygen_Tank : MonoBehaviour
     public float oxygen = 15;
     public bool in_zone = true;
     private Ship_Manager ship;
+    public GameObject audio;
     private void Start()
     {
         ship = GameObject.FindGameObjectWithTag("Ship").GetComponent<Ship_Manager>();
@@ -32,6 +33,7 @@ public class Oxygen_Tank : MonoBehaviour
             {
                 ship.ox_time += oxygen;
             }
+            Instantiate(audio);
             Destroy(gameObject);
         }
     }

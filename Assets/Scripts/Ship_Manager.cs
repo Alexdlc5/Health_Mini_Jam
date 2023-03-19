@@ -47,7 +47,22 @@ public class Ship_Manager : MonoBehaviour
                 //drain
                 breach_count = GameObject.FindGameObjectsWithTag("Breach").Length;
                 float drain = 1 + ((float)breach_count);
-                ox_time -= drain * Time.deltaTime;
+                if (score > 10000)
+                {
+                    ox_time -= drain * 1.2f * Time.deltaTime;
+                }
+                else if (score > 8000)
+                {
+                    ox_time -= drain * 1.15f * Time.deltaTime;
+                }
+                else if (score > 4000)
+                {
+                    ox_time -= drain * 1.1f * Time.deltaTime;
+                }
+                else
+                {
+                    ox_time -= drain * Time.deltaTime;
+                }
                 //UI
                 oxygen_slider.value = ox_time;
                 int intscore = (int)score;

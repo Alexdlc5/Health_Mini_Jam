@@ -104,6 +104,7 @@ MonoBehaviour:
   isAsteroid: 0
   oxygen: 3
   in_zone: 1
+  audio: {fileID: 2993948002132121130, guid: fd9822ba51f733846bd8390d276053d2, type: 3}
 --- !u!61 &4497755873399189344
 BoxCollider2D:
   m_ObjectHideFlags: 0

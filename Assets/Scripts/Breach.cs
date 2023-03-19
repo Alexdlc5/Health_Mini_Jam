@@ -4,14 +4,20 @@ using UnityEngine;
 
 public class Breach : MonoBehaviour
 {
-    Ship_Manager ship;
+    public float repair_time_set = 2;
+    public GameObject audio;
+    private Ship_Manager ship;
     private bool closing = false;
     private float repair_time;
-    public float repair_time_set = 2;
+
     private void Start()
     {
         ship = GameObject.FindGameObjectWithTag("Ship").GetComponent<Ship_Manager>();
         repair_time = repair_time_set;
+    }
+    private void OnEnable()
+    {
+        GetComponent<AudioSource>().Play();
     }
     private void Update()
     {
@@ -23,6 +29,7 @@ public class Breach : MonoBehaviour
             }
             else if (closing)
             {
+                Instantiate(audio);
                 repair_time = repair_time_set;
                 gameObject.SetActive(false);
             }

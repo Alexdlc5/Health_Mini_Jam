@@ -13,6 +13,7 @@ public class Scene_Change : MonoBehaviour
     }
     private void loadScene()
     {
+        GetComponent<AudioSource>().Play();
         SceneManager.LoadScene(scene_index);
     }
 }
