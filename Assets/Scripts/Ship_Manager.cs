@@ -46,18 +46,26 @@ public class Ship_Manager : MonoBehaviour
                 score += Time.deltaTime * 100;
                 //drain
                 breach_count = GameObject.FindGameObjectsWithTag("Breach").Length;
-                float drain = 1 + ((float)breach_count);
+                float drain = .8f + ((float)breach_count);
                 if (score > 10000)
                 {
                     ox_time -= drain * 1.2f * Time.deltaTime;
                 }
                 else if (score > 8000)
                 {
-                    ox_time -= drain * 1.15f * Time.deltaTime;
+                    ox_time -= drain * 1.2f * Time.deltaTime;
                 }
                 else if (score > 4000)
                 {
-                    ox_time -= drain * 1.1f * Time.deltaTime;
+                    ox_time -= drain * 1.2f * Time.deltaTime;
+                }
+                else if (score > 2000)
+                {
+                    ox_time -= drain * 1.2f * Time.deltaTime;
+                }
+                else if (score > 1000)
+                {
+                    ox_time -= drain * 1.2f * Time.deltaTime;
                 }
                 else
                 {
